@@ -44,7 +44,7 @@ class window(tk.Tk):
         time_label = tk.Label(left_frame, text="Time in years : ")
         time_label.pack(pady=5)
 
-        rate_label = tk.Label(left_frame, text=r"Rate (% as a decimal): ")
+        rate_label = tk.Label(left_frame, text="Rate (whole number or decimal): ")
         rate_label.pack(pady=5)
 
         cpy_label = tk.Label(left_frame, text="Compounds per Year ('oo' if conintuous) : ")
