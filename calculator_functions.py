@@ -52,5 +52,6 @@ def main():
 
     print(f"Your total is : {total}")
 
+
 if __name__ == "__main__":
     main()

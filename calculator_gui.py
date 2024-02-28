@@ -53,9 +53,12 @@ class window(tk.Tk):
         # List of entry boxes to pass into class method
         entries = [principal_entry, time_entry, rate_entry, cpy_entry]
 
+        # Bind Return key on cpy_entry to validate method
+        cpy_entry.bind("<Return>", lambda event: self.validate(entries))
+
         # Button to trigger methods
         button = tk.Button(self, text="Calculate", command= lambda: self.validate(entries))
-        button.pack()
+        button.pack(pady=5)
 
 
     def calculate(self, principal, time, rate, compound_per_year):
@@ -67,7 +70,7 @@ class window(tk.Tk):
             total = compound_interest_per_year(principal, rate, time, compound_per_year)
 
         # Display calculated total in a messagebox        
-        messagebox.showinfo(message=f"Total after compounded interest is : ${"{:.2f}".format(total)}")
+        messagebox.showinfo(message=f'Total after compounded interest is : ${"{:.2f}".format(total)}')
         return
 
 
@@ -88,6 +91,9 @@ class window(tk.Tk):
 
         try:
             rate = float(entries[2].get())
+            if rate > 1:
+                rate = rate / 100
+            print(rate)
         except ValueError:
             messagebox.showerror(message="Incorrect value for Rate.")
             return
@@ -96,12 +102,17 @@ class window(tk.Tk):
 
         if compound_per_year!="oo":
             try:
+                if float(compound_per_year) == 0.0:
+                    messagebox.showerror(message="Compound Per Year cannot be 00, did you mean 'oo' as in lower case o lower case 0?")
+                    return
+                
                 compound_per_year = float(compound_per_year)
             except ValueError:
                 messagebox.showerror(message="Incorrect value for Compounds per Year.")
                 return
         
         self.calculate(principal, time, rate, compound_per_year)
+
         
 
 if __name__ == "__main__":
